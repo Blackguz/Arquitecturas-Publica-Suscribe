@@ -13,15 +13,20 @@
 import random
 from src.patient import Patient
 from src.helpers.publicador import publish
+from src.group import Group
 import time
 
 if __name__ == '__main__':
     print("Iniciando simulación del sistema SMAM...")
+    groups = []
+    total_groups = random.randint(1, 5)
+    for i in range(total_groups):
+        groups.append(Group(chr(ord('a')+i)))
     older_patients = []
     total_patients = random.randint(1, 5)
     print(f"actualmente hay {total_patients} adultos mayores...")
     for _ in range(total_patients):
-        older_patients.append(Patient())
+        older_patients.append(Patient(groups))
     print("Comenzando monitoreo de signos vitales...")
     print()
     for _ in range(20):
@@ -33,6 +38,9 @@ if __name__ == '__main__':
             if patient.wearable.blood_pressure > 110 or patient.wearable.temperature > 37.5 or patient.wearable.heart_rate > 110:
                 print("anomalía detectada, notificando signos vitales...")
                 publish('notifier', patient.to_json())
+            if len(patient.timer.medicine) > 0:
+                print("un paciente necesita tomar su medicina")
+                publish('timer', patient.to_json())
             print()
             print("actualizando expediente...")
             publish('record', patient.to_json())

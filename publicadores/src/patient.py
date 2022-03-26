@@ -46,7 +46,7 @@ import random, json
 
 class Patient:
 
-    def __init__(self):
+    def __init__(self, groups):
         fake = Faker()
         self.age = self.heart_rate = random.randint(60, 120)
         self.name = fake.first_name()
@@ -55,10 +55,12 @@ class Patient:
         self.wearable = XiaomiMyBand()
         self.timer = Timer()
         self.accelerometer = Accelerometer()
+        self.groups = []
+        self.groups.append(random.choice(groups))
 
     def check_devices(self):
         self.wearable.run()
-        self.timer.run()
+        self.timer.run(self.groups)
         self.accelerometer.run()
 
     def to_json(self):

@@ -31,7 +31,7 @@
 #
 #-------------------------------------------------------------------------
 from faker import Faker
-import random
+import random, datetime
 
 class Timer:
 
@@ -39,13 +39,14 @@ class Timer:
         fake = Faker()
         self.id = fake.numerify(text="%%######")
 
-    def run(self):
-        """
-        el suministro de un medicamento determinado
-        se realiza al cumplirse un horario establecido
-        para un grupo de adultos mayores
+    def run(self, groups):
+        # hora = datetime.datetime.now().strftime("%H")
+        # hora = int(hora)
+        hora = random.randint(0, 24)
 
-        un ejemplo de horario puede ser cada 8 horas
-        -> numero_random % 8 == 0
-        """
-        self.medicine = random.choice(['Paracetamol', 'Dipirona magnésica', 'Dipirona hioscina', 'Tramadol', 'Antidepresivo', 'Aspirina', 'Antiarritmico', 'Diuretico'])
+        self.medicine = []
+
+        for group in groups:
+            for prescription in group.schedule:
+                if hora % prescription.hour == 0:
+                    self.medicine.append((prescription.medicine, prescription.dose, prescription.unit))

@@ -66,15 +66,15 @@
 import json, time, pika, sys
 import telepot
 
-class NotifierTimer:
+class NotifierAccelerometer:
 
     def __init__(self):
-        self.topic = "notifier_timer"
-        self.token = ""
-        self.chat_id = ""
+        self.topic = "notifier_accelerometer"
+        self.token = "5285113669:AAFwwevUAPc2crTsdnDF69OjDynBs-xhykY"
+        self.chat_id = "-1001541014221"
 
     def suscribe(self):
-        print("Inicio de gestión de medicamento...")
+        print("Inicio de gestión de acelerometros...")
         print()
         self.consume(queue=self.topic, callback=self.callback)
 
@@ -91,15 +91,15 @@ class NotifierTimer:
             sys.exit("Conexión finalizada...")
 
     def callback(self, ch, method, properties, body):
-        print("enviando notificación de medicinas...")
+        print("enviando notificación de caida...")
         if self.token and self.chat_id:
             data = json.loads(body.decode("utf-8"))
-            message = f"ADVERTENCIA!!!\n[{data['wearable']['date']}]: asistir al paciente {data['name']} {data['last_name']}...\nssn: {data['ssn']}, edad: {data['age']}, temperatura: {round(data['wearable']['temperature'], 1)}, ritmo cardiaco: {data['wearable']['heart_rate']}, presión arterial: {data['wearable']['blood_pressure']}, dispositivo: {data['wearable']['id']}"
+            message = f"[{data['wearable']['date']}]: Ayudar al paciente {data['name']} {data['last_name']} se cayo muy recio ayudenlo por favor."
             bot = telepot.Bot(self.token)
             bot.sendMessage(self.chat_id, message)
         time.sleep(1)
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
 if __name__ == '__main__':
-    notifier_timer = NotifierTimer()
-    notifier_timer.suscribe()
+    notifier_accelerometer = NotifierAccelerometer()
+    notifier_accelerometer.suscribe()

@@ -66,10 +66,10 @@
 import json, time, pika, sys
 import telepot
 
-class Timer:
+class NotifierTimer:
 
     def __init__(self):
-        self.topic = "timer"
+        self.topic = "notifier_timer"
         self.token = ""
         self.chat_id = ""
 
@@ -101,5 +101,5 @@ class Timer:
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
 if __name__ == '__main__':
-    timer = Timer()
-    timer.suscribe()
+    notifier_timer = NotifierTimer()
+    notifier_timer.suscribe()

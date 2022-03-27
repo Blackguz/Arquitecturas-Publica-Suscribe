@@ -70,8 +70,8 @@ class NotifierTimer:
 
     def __init__(self):
         self.topic = "notifier_timer"
-        self.token = ""
-        self.chat_id = ""
+        self.token = "5285113669:AAFwwevUAPc2crTsdnDF69OjDynBs-xhykY"
+        self.chat_id = "-1001541014221"
 
     def suscribe(self):
         print("Inicio de gestión de medicamento...")
@@ -94,7 +94,8 @@ class NotifierTimer:
         print("enviando notificación de medicinas...")
         if self.token and self.chat_id:
             data = json.loads(body.decode("utf-8"))
-            message = f"ADVERTENCIA!!!\n[{data['wearable']['date']}]: asistir al paciente {data['name']} {data['last_name']}...\nssn: {data['ssn']}, edad: {data['age']}, temperatura: {round(data['wearable']['temperature'], 1)}, ritmo cardiaco: {data['wearable']['heart_rate']}, presión arterial: {data['wearable']['blood_pressure']}, dispositivo: {data['wearable']['id']}"
+            prescription = ", ".join("{}{} de {}".format(x[1], x[2], x[0]) for x in data['timer']['medicine'])
+            message = f"[{data['wearable']['date']}]: Medicar al paciente {data['name']} {data['last_name']} con {prescription}\nSSN: {data['ssn']}, Edad: {data['age']}"
             bot = telepot.Bot(self.token)
             bot.sendMessage(self.chat_id, message)
         time.sleep(1)

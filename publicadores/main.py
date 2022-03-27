@@ -10,6 +10,7 @@
 #   Este archivo define el punto de ejecución del Publicador
 #
 #-------------------------------------------------------------------------
+from os import lseek
 import random
 from src.patient import Patient
 from src.helpers.publicador import publish
@@ -35,6 +36,7 @@ if __name__ == '__main__':
             patient.check_devices()
             print()
             print("analizando signos vitales...")
+            print(patient.accelerometer.magnitude())
             if patient.wearable.blood_pressure > 110 or patient.wearable.temperature > 37.5 or patient.wearable.heart_rate > 110:
                 print("anomalía detectada, notificando signos vitales...")
                 publish('notifier', patient.to_json())
@@ -42,7 +44,11 @@ if __name__ == '__main__':
                 print("un paciente necesita tomar su medicina")
                 publish('notifier_timer', patient.to_json())
                 publish('monitor_timer', patient.to_json())
-            print(patient.to_json())
+            if patient.accelerometer.magnitude() >= 10:
+                print("Un paciente se cayo por favor ayudenlo")
+                publish('notifier_accelerometer', patient.to_json())
+                publish('monitor_accelerometer', patient.to_json())
+            print()
             print("actualizando expediente...")
             publish('record', patient.to_json())
             publish('monitor', patient.to_json())

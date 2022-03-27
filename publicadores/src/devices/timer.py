@@ -30,6 +30,7 @@
 #           +------------------------+--------------------------+-----------------------+
 #
 #-------------------------------------------------------------------------
+from time import strftime
 from faker import Faker
 import random, datetime
 
@@ -38,15 +39,20 @@ class Timer:
     def __init__(self):
         fake = Faker()
         self.id = fake.numerify(text="%%######")
+        self.last_modify = int(datetime.datetime.now().strftime("%H"))-1
 
     def run(self, groups):
-        # hora = datetime.datetime.now().strftime("%H")
-        # hora = int(hora)
-        hora = random.randint(0, 24)
+        current_hour = int(datetime.datetime.now().strftime("%H"))
 
         self.medicine = []
 
+        print("current:",current_hour,"last:",self.last_modify)
+
+        if current_hour == self.last_modify:
+            return
+
         for group in groups:
             for prescription in group.schedule:
-                if hora % prescription.hour == 0:
+                if current_hour % prescription.hour == 0:
                     self.medicine.append((prescription.medicine, prescription.dose, prescription.unit))
+        self.last_modify = int(datetime.datetime.now().strftime("%H"))

@@ -41,7 +41,8 @@ if __name__ == '__main__':
             if len(patient.timer.medicine) > 0:
                 print("un paciente necesita tomar su medicina")
                 publish('notifier_timer', patient.to_json())
-            print()
+                publish('monitor_timer', patient.to_json())
+            print(patient.to_json())
             print("actualizando expediente...")
             publish('record', patient.to_json())
             publish('monitor', patient.to_json())

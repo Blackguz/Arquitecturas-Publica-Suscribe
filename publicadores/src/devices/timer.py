@@ -46,7 +46,6 @@ class Timer:
 
         self.medicine = []
 
-        print("current:",current_hour,"last:",self.last_modify)
 
         if current_hour == self.last_modify:
             return

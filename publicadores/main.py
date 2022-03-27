@@ -36,7 +36,6 @@ if __name__ == '__main__':
             patient.check_devices()
             print()
             print("analizando signos vitales...")
-            print(patient.accelerometer.magnitude())
             if patient.wearable.blood_pressure > 110 or patient.wearable.temperature > 37.5 or patient.wearable.heart_rate > 110:
                 print("anomalía detectada, notificando signos vitales...")
                 publish('notifier', patient.to_json())

@@ -28,16 +28,35 @@
 #
 #-------------------------------------------------------------------------
 from faker import Faker
+import random
+import math
 
 class Accelerometer:
 
     def __init__(self):
         fake = Faker()
         self.id = fake.numerify(text="%%######")
+        self.force_x = (random.random()*10)*(random.choice([1,-1]))
+        self.force_y = (random.random()*10)*(random.choice([1,-1]))
+        self.force_z = (random.random()*10)*(random.choice([1,-1]))
+
+    def magnitude(self):
+        return math.sqrt(math.pow(self.force_x, 2)+ math.pow(self.force_y, 2) + math.pow(self.force_z, 2))
+
 
     def run(self):
         """
         una caída se puede determinar de acuerdo al posicionamiento
         de la persona en un determinado momento
         """
-        pass
+        if self.magnitude() >= 10:
+            self.force_x = 0
+            self.force_y = 0
+            self.force_z = 0
+        else:
+            self.force_x += (random.choice([1,-1]))
+            self.force_y += (random.choice([1,-1]))
+            self.force_z += (random.choice([1,-1]))
+
+ 
+                 

@@ -6,9 +6,25 @@ Existe un asilo llamado Divina Providencia en el que viven un grupo de adultos m
 
 La fundación Catalina Huffmann, que es una fundación altruista en la región, decidió, a manera de donación, desarrollarle al asilo un sistema de cómputo para realizar las actividades de monitoreo del estado de salud de los adultos mayores de forma (semi-)automática. Para ello, la fundación utilizó un conjunto de dispositivos “wearables” que portan cada uno de los adultos mayores. Mediante el envío de información sobre ritmo cardiaco, presión arterial y temperatura, estos dispositivos “wearables” permiten monitorear en tiempo real a cada uno de los adultos mayores y de esta forma ser más eficientes en la prevención de incidencias. Así como monitorear los horarios de medicación, y notificar sobre posibles caídas de los adultos mayores.
 
+### Diagrama de Contexto
+
 En la siguiente figura se muestra el diseño de la propuesta de solución del departamento de desarrollo para el SMAM.
 
 ![Vista de contenedores del SMAM](docs/context-view.png)
+
+### Diagrama de Secuencia
+
+En el siguiente diagrama se muestra como se comportará el sistema en tiempo de ejecución, el como los mensajes de los publicadores legan hasta los suscriptores
+
+![Diagrama de secuencia](docs/sequence-diagram.png)
+
+### Diagrama de Contenedores
+
+![Vista de contenedores](docs/container-view.png)
+
+### Diagrama de Secuencia 2
+
+![Diagrama de secuencia 2](docs/sequence-diagram-2.png)
 
 ## Estructura del proyecto
 

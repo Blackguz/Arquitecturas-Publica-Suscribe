@@ -23,10 +23,11 @@
 #           |                        |    la instancia de la    |    alarma que         |
 #           |                        |    clase                 |    determina el       |
 #           |                        |                          |    momento en el que  |
-#           |                        |                          |    se debe            |
-#           |                        |                          |    administrar algún  |
-#           |                        |                          |    medicamento a los  | 
-#           |                        |                          |    adultos mayores    |
+#           |                        |  -  groups: es un grupo  |    se debe            |
+#           |                        |     o los grupos a los   |    administrar algún  |
+#           |                        |     que se seles         |    medicamento a los  | 
+#           |                        |     asignara un          |    adultos mayores    |
+#           |                        |     medicamento o varios |                       |
 #           +------------------------+--------------------------+-----------------------+
 #
 #-------------------------------------------------------------------------

@@ -25,6 +25,12 @@
 #           |                        |                          |    determinado        |
 #           |                        |                          |    momento            |
 #           +------------------------+--------------------------+-----------------------+
+#           |          magnitude     |  - self: definición de   |  - Calcula la         |
+#           |                        |    la instancia de la    |    magnitud de los    |
+#           |                        |    clase                 |    diferentes puntos  |
+#           |                        |                          |    de ubicación       |
+#           |                        |                          |    del paciente       |
+#           +------------------------+--------------------------+-----------------------+
 #
 #-------------------------------------------------------------------------
 from faker import Faker

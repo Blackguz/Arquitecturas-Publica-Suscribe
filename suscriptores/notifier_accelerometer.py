@@ -1,15 +1,14 @@
 ##!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #-------------------------------------------------------------------------
-# Archivo: notifier.py
+# Archivo: notifier_accelerometer.py
 # Capitulo: Estilo Publica-Suscribe
-# Autor(es): Perla Velasco & Yonathan Mtz. & Jorge Solís
+# Autor(es): Elías Beltrán & Juventino Aguilar & Román Guzmán & Jorge Diaz
 # Version: 3.0.0 Marzo 2022
 # Descripción:
 #
 #   Esta clase define el suscriptor que recibirá mensajes desde el distribuidor de mensajes
-#   y lo notificará a un(a) enfermero(a) én particular para la atención del adulto mayor en
-#   cuestión
+#   y lo notificará a un(a) enfermero(a) sobre posibles caídas de los pacientes
 #
 #   Este archivo también define el punto de ejecución del Suscriptor
 #
@@ -25,8 +24,9 @@
 #           +------------------------+--------------------------+-----------------------+
 #           |       suscribe()       |  - self: definición de   |  - inicializa el      |
 #           |                        |    la instancia de la    |    proceso de         |
-#           |                        |    clase                 |    monitoreo de       |
-#           |                        |                          |    signos vitales     |
+#           |                        |    clase                 |    monitoreo posibles |
+#           |                        |                          |    caídas de los      |
+#           |                        |                          |    pacientes          |                                      
 #           +------------------------+--------------------------+-----------------------+
 #           |        consume()       |  - self: definición de   |  - realiza la         |
 #           |                        |    la instancia de la    |    suscripción en el  |
@@ -42,11 +42,11 @@
 #           |                        |    mensajes              |                       |
 #           +------------------------+--------------------------+-----------------------+
 #           |       callback()       |  - self: definición de   |  - envía a través de  |
-#           |                        |    la instancia de la    |    telegram los datos |
-#           |                        |    clase                 |    del adulto mayor   |
-#           |                        |  - ch: canal de          |    recibidos desde el |
-#           |                        |    comunicación entre el |    distribuidor de    |
-#           |                        |    suscriptor y el       |    mensajes           |
+#           |                        |    la instancia de la    |    telegram           |
+#           |                        |    clase                 |    información sobre  |
+#           |                        |  - ch: canal de          |    posibles caídas de |
+#           |                        |    comunicación entre el |    los pacientes      |
+#           |                        |    suscriptor y el       |                       |
 #           |                        |    distribuidor de       |                       |
 #           |                        |    mensajes [propio de   |                       |
 #           |                        |    RabbitMQ]             |                       |

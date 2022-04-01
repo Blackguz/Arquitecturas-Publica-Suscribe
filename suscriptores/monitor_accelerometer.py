@@ -3,7 +3,7 @@
 #-------------------------------------------------------------------------
 # Archivo: monitor_timer.py
 # Capitulo: Estilo Publica-Suscribe
-# Autor(es): Perla Velasco & Yonathan Mtz. & Jorge Solís
+# Autor(es): Elías Beltrán & Juventino Aguilar & Román Guzmán & Jorge Diaz
 # Version: 3.0.0 Marzo 2022
 # Descripción:
 #
@@ -25,7 +25,8 @@
 #           |       suscribe()       |  - self: definición de   |  - inicializa el      |
 #           |                        |    la instancia de la    |    proceso de         |
 #           |                        |    clase                 |    monitoreo de       |
-#           |                        |                          |    signos vitales     |
+#           |                        |                          |    velocidad de       |
+#           |                        |                          |    movimiento         |
 #           +------------------------+--------------------------+-----------------------+
 #           |        consume()       |  - self: definición de   |  - realiza la         |
 #           |                        |    la instancia de la    |    suscripción en el  |
@@ -40,17 +41,17 @@
 #           |                        |    distribuidor de       |                       |
 #           |                        |    mensajes              |                       |
 #           +------------------------+--------------------------+-----------------------+
-#           |       callback()       |  - self: definición de   |  - muetra en pantalla |
-#           |                        |    la instancia de la    |    los datos del      |
+#           |       callback()       |  - self: definición de   |  - muestra en pantalla|
+#           |                        |    la instancia de la    |    el nombre del      |
 #           |                        |    clase                 |    adulto mayor       |
-#           |                        |  - ch: canal de          |    recibidos desde el |
+#           |                        |  - ch: canal de          |    recibido desde el  |
 #           |                        |    comunicación entre el |    distribuidor de    |
-#           |                        |    suscriptor y el       |    mensajes           |
-#           |                        |    distribuidor de       |                       |
-#           |                        |    mensajes [propio de   |                       |
-#           |                        |    RabbitMQ]             |                       |
-#           |                        |  - method: método de     |                       |
-#           |                        |    conexión utilizado en |                       |
+#           |                        |    suscriptor y el       |    mensajes,          |
+#           |                        |    distribuidor de       |    además de un       |
+#           |                        |    mensajes [propio de   |    mensaje en el caso |
+#           |                        |    RabbitMQ]             |    de que el paciente |
+#           |                        |  - method: método de     |    haya sufrido de    |
+#           |                        |    conexión utilizado en |    una caída          |
 #           |                        |    la suscripción        |                       |
 #           |                        |    [propio de RabbitMQ]  |                       |
 #           |                        |  - properties:           |                       |
@@ -64,13 +65,13 @@
 #-------------------------------------------------------------------------
 import json, time, pika, sys
 
-class MonitorTimer:
+class MonitorAccelerometer:
 
     def __init__(self):
         self.topic = "monitor_accelerometer"
 
     def suscribe(self):
-        print("Inicio de monitoreo de acelerometro")
+        print("Inicio de monitoreo de acelerometro...")
         print()
         self.consume(queue=self.topic, callback=self.callback)
 
@@ -94,5 +95,5 @@ class MonitorTimer:
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
 if __name__ == '__main__':
-    monitor_timer = MonitorTimer()
-    monitor_timer.suscribe()
+    monitor_accelerometer = MonitorAccelerometer()
+    monitor_accelerometer.suscribe()

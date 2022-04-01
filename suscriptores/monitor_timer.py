@@ -3,7 +3,7 @@
 #-------------------------------------------------------------------------
 # Archivo: monitor_timer.py
 # Capitulo: Estilo Publica-Suscribe
-# Autor(es): Perla Velasco & Yonathan Mtz. & Jorge Solís
+# Autor(es): Elías Beltrán & Juventino Aguilar & Román Guzmán & Jorge Diaz
 # Version: 3.0.0 Marzo 2022
 # Descripción:
 #
@@ -25,7 +25,8 @@
 #           |       suscribe()       |  - self: definición de   |  - inicializa el      |
 #           |                        |    la instancia de la    |    proceso de         |
 #           |                        |    clase                 |    monitoreo de       |
-#           |                        |                          |    signos vitales     |
+#           |                        |                          |    administración     |
+#           |                        |                          |    de medicamento     |
 #           +------------------------+--------------------------+-----------------------+
 #           |        consume()       |  - self: definición de   |  - realiza la         |
 #           |                        |    la instancia de la    |    suscripción en el  |
@@ -40,17 +41,17 @@
 #           |                        |    distribuidor de       |                       |
 #           |                        |    mensajes              |                       |
 #           +------------------------+--------------------------+-----------------------+
-#           |       callback()       |  - self: definición de   |  - muetra en pantalla |
-#           |                        |    la instancia de la    |    los datos del      |
+#           |       callback()       |  - self: definición de   |  - muestra en pantalla|
+#           |                        |    la instancia de la    |    algunos datos del  |
 #           |                        |    clase                 |    adulto mayor       |
 #           |                        |  - ch: canal de          |    recibidos desde el |
 #           |                        |    comunicación entre el |    distribuidor de    |
-#           |                        |    suscriptor y el       |    mensajes           |
-#           |                        |    distribuidor de       |                       |
-#           |                        |    mensajes [propio de   |                       |
-#           |                        |    RabbitMQ]             |                       |
-#           |                        |  - method: método de     |                       |
-#           |                        |    conexión utilizado en |                       |
+#           |                        |    suscriptor y el       |    mensajes,          |
+#           |                        |    distribuidor de       |    así como el nombre |
+#           |                        |    mensajes [propio de   |    del medicamento que|
+#           |                        |    RabbitMQ]             |    se le debe de      |
+#           |                        |  - method: método de     |    suministrar y la   |
+#           |                        |    conexión utilizado en |    cantidad de este   |
 #           |                        |    la suscripción        |                       |
 #           |                        |    [propio de RabbitMQ]  |                       |
 #           |                        |  - properties:           |                       |
@@ -70,7 +71,7 @@ class MonitorTimer:
         self.topic = "monitor_timer"
 
     def suscribe(self):
-        print("Inicio de monitoreo de medicamento")
+        print("Inicio de monitoreo de medicamento...")
         print()
         self.consume(queue=self.topic, callback=self.callback)
 

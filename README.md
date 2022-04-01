@@ -4,7 +4,7 @@
 
 Existe un asilo llamado Divina Providencia en el que viven un grupo de adultos mayores, parte del personal que trabaja en el asilo, entre otras tareas, se dedica a atender las necesidades de los adultos mayores y a monitorear su estado de salud.
 
-La fundación Catalina Huffmann, que es una fundación altruista en la región, decidió, a manera de donación, desarrollarle al asilo un sistema de cómputo para realizar las actividades de monitoreo del estado de salud de los adultos mayores de forma (semi-)automática. Para ello, la fundación utilizó un conjunto de dispositivos “wearables” que portan cada uno de los adultos mayores. Mediante el envío de información sobre ritmo cardiaco, presión arterial y temperatura, estos dispositivos “wearables” permiten monitorear en tiempo real a cada uno de los adultos mayores y de esta forma ser más eficientes en la prevención de incidencias.
+La fundación Catalina Huffmann, que es una fundación altruista en la región, decidió, a manera de donación, desarrollarle al asilo un sistema de cómputo para realizar las actividades de monitoreo del estado de salud de los adultos mayores de forma (semi-)automática. Para ello, la fundación utilizó un conjunto de dispositivos “wearables” que portan cada uno de los adultos mayores. Mediante el envío de información sobre ritmo cardiaco, presión arterial y temperatura, estos dispositivos “wearables” permiten monitorear en tiempo real a cada uno de los adultos mayores y de esta forma ser más eficientes en la prevención de incidencias. Así como monitorear los horarios de medicación, y notificar sobre posibles caídas de los adultos mayores.
 
 En la siguiente figura se muestra el diseño de la propuesta de solución del departamento de desarrollo para el SMAM.
 
@@ -28,12 +28,18 @@ Este repositorio contiene los siguientes directorios y archivos:
     │        ├── __init__.py                # indica la definición de módulo python
     │        ├── publicador.py              # archivo auxiliar de comunicación con el distribuidor de mensajes 
     │     ├── __init__.py                   # indica la definición de módulo python
+    |     ├── group.py                      # representación de los grupos de medicación
     │     ├── patient.py                    # representación de un adulto mayor en el sistema
+    |     ├── prescription.py               # representación de una receta médica
     |  ├── main.py                          # archivo principal de ejecución de publicadores
     ├── suscriptores                        # suscriptores del sistema
-    │  ├── monitor.py                       # suscriptor que muestra en pantalla las alertas del sistema
-    │  ├── notifier.py                      # suscriptor que notifica a un(a) enfermero(a) en particular
-    │  ├── record.py                        # suscriptor que actualiza el expediente de un adulto mayor en particular
+    │  ├── monitor_wearable.py              # suscriptor que muestra en pantalla los signos vitales de los adultos mayores
+    |  ├── monitor_accelerometer.py         # suscriptor que muestra en pantalla las posibles caídas de los adultos mayores
+    |  ├── monitor_timer.py                 # suscriptor que muestra en pantalla un aviso cuando un adulto mayor requiere medicamento
+    │  ├── notifier_wearable.py             # suscriptor que notifica a un(a) enfermero(a) en particular sobre los signos vitales de los adultos mayores
+    |  ├── notifier_accelerometer.py        # suscriptor que notifica a un(a) enfermero(a) en particular sobre posibles caídas de los adultos mayores
+    |  ├── notifier_timer.py                # suscriptor que notifica a un(a) enfermero(a) en particular cuando un adulto mayor requiere medicamento
+    │  ├── record_wearable.py               # suscriptor que actualiza el expediente de un adulto mayor en particular
     ├── .gitignore                          # exclusiones de git
     ├── README.md                           # este archivo
     ├── requirements.txt                    # dependencias del sistema
@@ -43,8 +49,8 @@ Este repositorio contiene los siguientes directorios y archivos:
 ## Prerrequisitos
 - Clonar el repositorio:
    ```shell
-   $ git clone https://gitlab.com/tareas-arquitectura-de-software-curso/publica-suscribe
-   $ cd publica-subscribe
+   $ git clone https://github.com/Blackguz/Arquitecturas-Publica-Suscribe.git
+   $ cd Arquitecturas-Publica-Suscribe
    ```
 - Contar con python 3.8 o superior y pip3 (las pruebas fueron realizadas con la versión 3.8). Se recomienda utilizar [pyenv](https://github.com/pyenv/pyenv) como manejador de versiones de python; una vez instalado se pueden seguir los siguientes comandos para instalar la versión deseada de python, esto hay que realizarlo en la raíz del repositorio:
    ```shell
@@ -125,16 +131,39 @@ Sigue las siguientes instrucciones para ejecutar los diferentes componentes del 
 
 ### Suscriptores
 
-**Notificador de alertas**
+**Notificador de alertas del wearable**
 
 - Entramos a la carpeta `suscriptores`:
    ```shell
    (venv)$ cd suscriptores
    ```
 
-- Ejecutamos el archivo `notifier.py`:
+- Ejecutamos el archivo `notifier_wearable.py`:
    ```shell
-   (venv)$ python notifier.py
+   (venv)$ python notifier_wearable.py
+   ```
+
+**Notificador de alertas del temporizador**
+
+- Entramos a la carpeta `suscriptores`:
+   ```shell
+   (venv)$ cd suscriptores
+   ```
+
+- Ejecutamos el archivo `notifier_timer.py`:
+   ```shell
+   (venv)$ python notifier_timer.py
+   ```
+**Notificador de alertas del acelerómetro**
+
+- Entramos a la carpeta `suscriptores`:
+   ```shell
+   (venv)$ cd suscriptores
+   ```
+
+- Ejecutamos el archivo `notifier_accelerometer.py`:
+   ```shell
+   (venv)$ python notifier_accelerometer.py
    ```
 
 **Log**
@@ -144,22 +173,45 @@ Sigue las siguientes instrucciones para ejecutar los diferentes componentes del 
    (venv)$ cd suscriptores
    ```
 
-- Ejecutamos el archivo `record.py`:
+- Ejecutamos el archivo `record_wearable.py`:
    ```shell
-   (venv)$ python record.py
+   (venv)$ python record_wearable.py
    ```
 
-**Monitor**
+**Monitor del wearable**
 
 - Entramos a la carpeta `suscriptores`:
    ```shell
    (venv)$ cd suscriptores
    ```
 
-- Ejecutamos el archivo `monitor.py`:
+- Ejecutamos el archivo `monitor_wearable.py`:
    ```shell
-   (venv)$ python monitor.py
+   (venv)$ python monitor_wearable.py
    ```
+**Monitor del temporizador**
+
+- Entramos a la carpeta `suscriptores`:
+   ```shell
+   (venv)$ cd suscriptores
+   ```
+
+- Ejecutamos el archivo `monitor_timer.py`:
+   ```shell
+   (venv)$ python monitor_timer.py
+   ```
+**Monitor del acelerómetro**
+
+- Entramos a la carpeta `suscriptores`:
+   ```shell
+   (venv)$ cd suscriptores
+   ```
+
+- Ejecutamos el archivo `monitor_accelerometer.py`:
+   ```shell
+   (venv)$ python monitor_accelerometer.py
+   ```
+
 
 ## Versión
 
@@ -171,3 +223,7 @@ Sigue las siguientes instrucciones para ejecutar los diferentes componentes del 
 * **Yonathan Martínez**
 * **Sergio Salazar**
 * **Jorge Solis**
+* **Elías Emiliano Beltrán González**
+* **Juventino Aguilar Correa**
+* **Román Guzmán Valles**
+* **Jorge Luis Díaz Serna**

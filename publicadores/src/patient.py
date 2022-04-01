@@ -19,6 +19,11 @@
 #           |       __init__()       |  - self: definición de   |  - constructor de la  |
 #           |                        |    la instancia de la    |    clase              |
 #           |                        |    clase                 |                       |
+#           |                        |                          |                       |
+#           |                        |  - groups: Lista de los  |                       |
+#           |                        |    grupos de medicamentos|                       |
+#           |                        |    a los que pertenece   |                       |
+#           |                        |    el paciente           |                       |
 #           +------------------------+--------------------------+-----------------------+
 #           |    check_devices()     |  - self: definición de   |  - realiza la         |
 #           |                        |    la instancia de la    |    consulta de los    |

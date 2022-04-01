@@ -1,3 +1,30 @@
+##!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#-------------------------------------------------------------------------
+# Archivo: group.py
+# Capitulo: Estilo Publica-Suscribe
+# Autor(es): Elías Beltrán & Juventino Aguilar & Román Guzmán & Jorge Diaz
+# Version: 3.0.0 Marzo 2022
+# Descripción:
+#
+#   Esta clase define un grupo de prescripciones que se deben recetar a todos los
+#   pacientes que forman parte del grupo
+#
+#   A continuación se describen los métodos que se implementaron en esta clase:
+#
+#                                             Métodos:
+#           +------------------------+--------------------------+-----------------------+
+#           |         Nombre         |        Parámetros        |        Función        |
+#           +------------------------+--------------------------+-----------------------+
+#           |       __init__()       |  - self: definición de   |  - constructor de la  |
+#           |                        |    la instancia de la    |    clase              |
+#           |                        |    clase                 |                       |
+#           |                        |                          |                       |
+#           |                        |  - name: nombre del      |                       |
+#           |                        |    grupo                 |                       |
+#           +------------------------+--------------------------+-----------------------+
+#
+#-------------------------------------------------------------------------
 import random
 from src.prescription import Prescription
 

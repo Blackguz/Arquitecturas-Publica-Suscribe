@@ -1,15 +1,15 @@
 ##!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #-------------------------------------------------------------------------
-# Archivo: notifier.py
+# Archivo: notifier_timer.py
 # Capitulo: Estilo Publica-Suscribe
-# Autor(es): Perla Velasco & Yonathan Mtz. & Jorge Solís
+# Autor(es): Elías Beltrán & Juventino Aguilar & Román Guzmán & Jorge Diaz
 # Version: 3.0.0 Marzo 2022
 # Descripción:
 #
 #   Esta clase define el suscriptor que recibirá mensajes desde el distribuidor de mensajes
-#   y lo notificará a un(a) enfermero(a) én particular para la atención del adulto mayor en
-#   cuestión
+#   y lo notificará a un(a) enfermero(a) én particular para informarle sobre los horarios de
+#   medicación de los pacientes
 #
 #   Este archivo también define el punto de ejecución del Suscriptor
 #
@@ -26,7 +26,8 @@
 #           |       suscribe()       |  - self: definición de   |  - inicializa el      |
 #           |                        |    la instancia de la    |    proceso de         |
 #           |                        |    clase                 |    monitoreo de       |
-#           |                        |                          |    signos vitales     |
+#           |                        |                          |    horarios de        | 
+#           |                        |                          |    medicación         |
 #           +------------------------+--------------------------+-----------------------+
 #           |        consume()       |  - self: definición de   |  - realiza la         |
 #           |                        |    la instancia de la    |    suscripción en el  |
@@ -43,10 +44,10 @@
 #           +------------------------+--------------------------+-----------------------+
 #           |       callback()       |  - self: definición de   |  - envía a través de  |
 #           |                        |    la instancia de la    |    telegram los datos |
-#           |                        |    clase                 |    del adulto mayor   |
-#           |                        |  - ch: canal de          |    recibidos desde el |
-#           |                        |    comunicación entre el |    distribuidor de    |
-#           |                        |    suscriptor y el       |    mensajes           |
+#           |                        |    clase                 |    de los adultos     |
+#           |                        |  - ch: canal de          |    mayores a los que  |
+#           |                        |    comunicación entre el |    les toca tomar su  |
+#           |                        |    suscriptor y el       |    medicamento        |
 #           |                        |    distribuidor de       |                       |
 #           |                        |    mensajes [propio de   |                       |
 #           |                        |    RabbitMQ]             |                       |

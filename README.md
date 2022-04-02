@@ -23,6 +23,7 @@ En el siguiente diagrama se muestra como se comportará el sistema en tiempo de 
 ![Vista de contenedores](docs/container-view.png)
 
 ### Diagrama de Secuencia 2
+En el siguiente diagrama se muestra el comportamiento o el flujo de datos de los publicadores y los sucriptores al momento de encolar, transmitir y mostrar alertas mediante el sistema.
 
 ![Diagrama de secuencia 2](docs/sequence-diagram-2.png)
 

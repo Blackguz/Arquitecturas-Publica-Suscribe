@@ -1,15 +1,14 @@
 ##!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #-------------------------------------------------------------------------
-# Archivo: notifier.py
+# Archivo: record_wearable.py
 # Capitulo: Estilo Publica-Suscribe
 # Autor(es): Perla Velasco & Yonathan Mtz. & Jorge Solís
 # Version: 3.0.0 Marzo 2022
 # Descripción:
 #
 #   Esta clase define el suscriptor que recibirá mensajes desde el distribuidor de mensajes
-#   y lo notificará a un(a) enfermero(a) én particular para la atención del adulto mayor en
-#   cuestión
+#   y los almacena en un archivo de texto que simula el expediente de los pacientes
 #
 #   Este archivo también define el punto de ejecución del Suscriptor
 #
@@ -41,12 +40,12 @@
 #           |                        |    distribuidor de       |                       |
 #           |                        |    mensajes              |                       |
 #           +------------------------+--------------------------+-----------------------+
-#           |       callback()       |  - self: definición de   |  - envía a través de  |
-#           |                        |    la instancia de la    |    telegram los datos |
-#           |                        |    clase                 |    del adulto mayor   |
-#           |                        |  - ch: canal de          |    recibidos desde el |
-#           |                        |    comunicación entre el |    distribuidor de    |
-#           |                        |    suscriptor y el       |    mensajes           |
+#           |       callback()       |  - self: definición de   |  - escribe los datos  |
+#           |                        |    la instancia de la    |    del adulto mayor   |
+#           |                        |    clase                 |    recibidos desde el |
+#           |                        |  - ch: canal de          |    distribuidor de    |
+#           |                        |    comunicación entre el |    mensajes en un     |
+#           |                        |    suscriptor y el       |    archivo de texto   |
 #           |                        |    distribuidor de       |                       |
 #           |                        |    mensajes [propio de   |                       |
 #           |                        |    RabbitMQ]             |                       |
@@ -63,18 +62,19 @@
 #           +------------------------+--------------------------+-----------------------+
 #
 #-------------------------------------------------------------------------
-import json, time, pika, sys
-import telepot
+import json, time, pika, sys, os
 
-class Notifier:
+class Record:
 
     def __init__(self):
-        self.topic = "notifier"
-        self.token = ""
-        self.chat_id = ""
+        try:
+            os.mkdir('records')
+        except OSError as _:
+            pass
+        self.topic = "record"
 
     def suscribe(self):
-        print("Inicio de gestión de notificaciones...")
+        print("Esperando datos del paciente para actualizar expediente...")
         print()
         self.consume(queue=self.topic, callback=self.callback)
 
@@ -91,15 +91,14 @@ class Notifier:
             sys.exit("Conexión finalizada...")
 
     def callback(self, ch, method, properties, body):
-        print("enviando notificación de signos vitales...")
-        if self.token and self.chat_id:
-            data = json.loads(body.decode("utf-8"))
-            message = f"ADVERTENCIA!!!\n[{data['wearable']['date']}]: asistir al paciente {data['name']} {data['last_name']}...\nssn: {data['ssn']}, edad: {data['age']}, temperatura: {round(data['wearable']['temperature'], 1)}, ritmo cardiaco: {data['wearable']['heart_rate']}, presión arterial: {data['wearable']['blood_pressure']}, dispositivo: {data['wearable']['id']}"
-            bot = telepot.Bot(self.token)
-            bot.sendMessage(self.chat_id, message)
+        print("datos recibidos, actualizando expediente del paciente...")
+        data = json.loads(body.decode("utf-8"))
+        record_file = open (f"./records/{data['ssn']}.txt",'a')
+        record_file.write(f"\n[{data['wearable']['date']}]: {data['name']} {data['last_name']}... ssn: {data['ssn']}, edad: {data['age']}, temperatura: {round(data['wearable']['temperature'], 1)}, ritmo cardiaco: {data['wearable']['heart_rate']}, presión arterial: {data['wearable']['blood_pressure']}, dispositivo: {data['wearable']['id']}")
+        record_file.close()
         time.sleep(1)
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
 if __name__ == '__main__':
-    notifier = Notifier()
-    notifier.suscribe()
+    record = Record()
+    record.suscribe()

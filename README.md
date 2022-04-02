@@ -20,6 +20,8 @@ En el siguiente diagrama se muestra como se comportará el sistema en tiempo de 
 
 ### Diagrama de Contenedores
 
+En el siguiente diagrama se muestra con mayor detalle la estructura interna del distribuidor de mensajes y su relación con publicadores y suscriptores.
+
 ![Vista de contenedores](docs/container-view.png)
 
 ### Diagrama de Secuencia 2
